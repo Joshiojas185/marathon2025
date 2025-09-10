@@ -33,7 +33,7 @@ const i18n = {
     male: 'पुरुष',
     female: 'महिला',
     other: 'अन्य',
-    constituency: 'निर्वाचन क्षेत्र',
+    constituency: 'विधानसभा',
     gotra: 'गोत्र *',
     tshirt: 'टी-शर्ट साइज *',
     submit: 'रजिस्टर करें',
@@ -51,7 +51,7 @@ const i18n = {
     male: 'Male',
     female: 'Female',
     other: 'Other',
-    constituency: 'Constituency',
+    constituency: 'विधानसभा',
     gotra: 'Gotra *',
     tshirt: 'T-shirt size *',
     submit: 'Register',
@@ -77,6 +77,7 @@ export default function RegistrationForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const [tickets, setTickets] = useState(() => {
     try {
       // Migrate older single-ticket storage to an array
@@ -103,6 +104,8 @@ export default function RegistrationForm() {
   };
 
   const handleSubmit = async (e) => {
+    if (submitting) return;
+    setSubmitting(true);
     e.preventDefault();
     setError('');
     try {
@@ -141,6 +144,7 @@ export default function RegistrationForm() {
     } catch (err) {
       setError(lang === 'hi' ? 'पंजीकरण विफल हुआ। कृपया पुनः प्रयास करें।' : 'Registration failed. Please try again.');
     }
+    setSubmitting(false);
   };
 
   return (
@@ -268,7 +272,7 @@ export default function RegistrationForm() {
               ))}
             </select>
           {error && <div className="error-msg">{error}</div>}
-          <button type="submit">{t.submit}</button>
+          <button disabled={submitting} type="submit">{t.submit}</button>
         </form>
       )}
     </div>
