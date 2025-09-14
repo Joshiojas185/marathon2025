@@ -17,6 +17,9 @@ dist_old
 myapp.css
 dist_latest2
 dist_old_2
+dist_2/
+dist_withoutdarkmode/
+dist_withoutdp/
 
 # Editor directories and files
 .vscode/*
